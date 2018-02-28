@@ -1,0 +1,95 @@
+{% assign nav_image_size = '400x' %}
+<nav class="main-nav cf desktop align-{{ section.settings.nav_alignment }}" data-col-limit="{{ section.settings.nav_col_limit_int }}" role="navigation" aria-label="{{ 'layout.desktop_navigation.menu_aria_label' | t | escape }}">
+  <ul>
+    {% if section.settings.header_layout == 'nav' %}<li class="logo-item logo-item-left">{{ logo_html }}</li>{% endif %}
+    {% for link in linklists[section.settings.menu_linklist].links %}
+
+      {% assign has_mega_drop_down = true %}
+      {% if link.links != blank %}
+        {% for child_link in link.links %}
+    	  {% if child_link.links == blank %}
+    		{% assign has_mega_drop_down = false %}
+    	  {% endif %}
+        {% endfor %}
+      {% else %}
+    	{% assign has_mega_drop_down = false %}
+      {% endif %}
+
+      <li class="nav-item{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}{% if link.active %} active{% endif %}{% if link.links != blank %} dropdown {% if has_mega_drop_down %}drop-uber{% else %}drop-norm{% endif %}{% endif %}">
+
+        <a class="nav-item-link" href="{{ link.url }}" {% if link.links != blank %}aria-haspopup="true" aria-expanded="false"{% endif %}>
+          <span class="nav-item-link-title">{{ link.title }}</span>
+          {% if link.links != blank %}{% include 'svg-chevron-down' %}{% endif %}
+        </a>
+
+        {% if has_mega_drop_down %}
+
+          <div class="sub-nav{% if section.settings.nav_show_images %} has-img{% endif %}">
+            {% if section.settings.nav_show_images %}<div class="rep-img"></div>{% endif %}
+
+            {% for child_link in link.links %}
+            <ul class="sub-nav-list">
+              <li class="sub-nav-item">
+                <a href="{{ child_link.url }}"><span class="sub-nav-item-title">{{ child_link.title }}</span></a>
+              </li>
+              {% for child_child_link in child_link.links %}
+              <li class="sub-nav-item{% if child_child_link.active %} active{% endif %}">
+                <a class="sub-nav-item-link" href="{{ child_child_link.url }}"{% if child_child_link.type == 'collection_link' %}{% if child_child_link.object.image %} data-img="{{ child_child_link.object.image | img_url: nav_image_size }}"{% else %} data-img="{{ child_child_link.object.products.first.featured_image | img_url: nav_image_size }}"{% endif %}{% endif %}{% if child_child_link.type == 'product_link' and child_child_link.object.featured_image %} data-img="{{ child_child_link.object.featured_image | img_url: nav_image_size }}"{% endif %}>
+                  <span class="sub-nav-item-link-title">{{ child_child_link.title }}</span>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
+          </div>
+
+        {% elsif link.links != blank %}
+
+          {% comment %} Normal dropdown {% endcomment %}
+
+          {% assign has_images = false %}
+          {% for child_link in link.links %}
+          {% if child_link.type == 'collection_link' and child_link.object.image %}{% assign has_images = true %}{% endif %}
+          {% if child_link.type == 'product_link' and child_link.object.featured_image %}{% assign has_images = true %}{% endif %}
+          {% endfor %}
+
+
+          {% if section.settings.nav_show_images and has_images %}
+            {% assign images_enabled = true %}
+          {% else %}
+            {% assign images_enabled = false %}
+          {% endif %}
+
+          <div class="sub-nav{% if images_enabled %} has-img{% endif %} count-{{ link.links | size }}">
+            {% if images_enabled %}<div class="rep-img"></div>{% endif %}
+
+            <ul class="sub-nav-list">
+              {% for child_link in link.links %}
+
+              <li class="sub-nav-item{% if child_link.active %} active{% endif %}{% if child_link.links != blank %} has-dropdown{% endif %}">
+                <a class="sub-nav-item-link" href="{{ child_link.url }}"{% if child_link.type == 'collection_link' %}{% if child_link.object.image %} data-img="{{ child_link.object.image | img_url: nav_image_size }}"{% else %} data-img="{{ child_link.object.products.first.featured_image | img_url: nav_image_size }}"{% endif %}{% endif %}{% if child_link.type == 'product_link' and child_link.object.featured_image %} data-img="{{ child_link.object.featured_image | img_url: nav_image_size }}"{% endif %} {% if child_link.links != blank %}aria-haspopup="true" aria-expanded="false"{% endif %}>
+                  <span class="sub-nav-item-link-title">{{ child_link.title }}</span>
+                  {% if child_link.links != blank %}{% include 'svg-chevron-down' %}{% endif %}
+                </a>
+
+                {% if child_link.links != blank %}
+                <ul class="sub-sub-nav-list">
+                  {% for child_child_link in child_link.links %}
+                  <li class="sub-nav-item{% if child_child_link.active %} active{% endif %}">
+                    <a class="sub-nav-item-link" href="{{ child_child_link.url }}"{% if child_child_link.type == 'collection_link' %}{% if child_child_link.object.image %} data-img="{{ child_child_link.object.image | img_url: nav_image_size }}"{% else %} data-img="{{ child_child_link.object.products.first.featured_image | img_url: nav_image_size }}"{% endif %}{% endif %}{% if child_child_link.type == 'product_link' and child_child_link.object.featured_image %} data-img="{{ child_child_link.object.featured_image | img_url: nav_image_size }}"{% endif %}>
+                      {{ child_child_link.title }}
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+              </li>
+
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

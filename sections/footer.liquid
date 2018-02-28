@@ -1,0 +1,208 @@
+<footer id="page-footer" class="page-footer">
+  <div class="container">
+
+    <a class="hash-link" href="#page-wrap-content"><span class="beside-svg">{{ 'layout.footer.back_to_top' | t }}</span> {% include 'svg-chevron-up' %}</a>
+
+    <div class="row section padless-top">
+
+      <div class="extra-column half column">
+        {% if section.settings.footer_display_newsletter %}
+        {% include 'mailing-signup' %}
+        {% endif %}
+      </div>
+
+      <div class="social-column align-right-desktop {% if section.settings.footer_display_newsletter %}half column{% else %}full column{% endif %}">
+        {% include 'social-links' %}
+      </div>
+
+    </div>
+
+    {% if section.settings.footer_complexity == 'columns' %}
+    <div class="row section padless-top">
+
+      {% if section.settings.show_footer_logo %}
+      <div class="logo-column column">
+        {% if section.settings.footer_logo != blank %}
+        {{ section.settings.footer_logo | img_url: '500x' | img_tag | link_to: shop.url }}
+        {% else %}
+        <div class="placeholder-image">{{ 'image' | placeholder_svg_tag }}</div>
+        {% endif%}
+      </div>
+      {% endif %}
+
+      <div class="text-column {% unless section.settings.show_footer_logo %}occupies-logo{% endunless %} column rte">
+        {{ section.settings.text_content }}
+      </div>
+
+      <div class="links-column column" role="navigation" aria-label="{{ 'layout.footer.menu_1_aria_label' | t | escape }}">
+        <ul class="plain">
+          {% for link in linklists[section.settings.footer_linklist].links %}
+          <li>{{ link.title | link_to: link.url }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="links-column column" role="navigation" aria-label="{{ 'layout.footer.menu_2_aria_label' | t | escape }}">
+        <ul class="plain">
+          {% for link in linklists[section.settings.footer_linklist2].links %}
+          <li>{{ link.title | link_to: link.url }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="links-column column" role="navigation" aria-label="{{ 'layout.footer.menu_3_aria_label' | t | escape }}">
+        <ul class="plain">
+          {% for link in linklists[section.settings.footer_linklist3].links %}
+          <li>{{ link.title | link_to: link.url }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+
+    {% else %}
+
+    {% if section.settings.text_content != blank %}
+    <div class="rte align-center">{{ section.settings.text_content }}</div>
+    {% endif %}
+    <div class="{% if section.settings.show_footer_logo %}menu-with-logo{% endif %}">
+      {% if section.settings.show_footer_logo %}
+      <span class="footer-logo">
+        {% if section.settings.footer_logo != blank %}
+        {{ section.settings.footer_logo | img_url: '240x80' | img_tag | link_to: shop.url }}
+        {% else %}
+        <div class="placeholder-image">{{ 'image' | placeholder_svg_tag }}</div>
+        {% endif%}
+      </span>
+      {% endif %}
+
+      <ul class="plain inline list-divide" role="navigation" aria-label="{{ 'layout.footer.menu_1_aria_label' | t | escape }}">
+        {% for link in linklists[section.settings.footer_linklist].links %}
+        <li>{{ link.title | link_to: link.url }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {% if section.settings.footer_linklist2 != blank %}
+    <ul class="plain inline list-divide" role="navigation" aria-label="{{ 'layout.footer.menu_2_aria_label' | t | escape }}">
+      {% for link in linklists[section.settings.footer_linklist2].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if section.settings.footer_linklist3 != blank %}
+    <ul class="plain inline list-divide" role="navigation" aria-label="{{ 'layout.footer.menu_3_aria_label' | t | escape }}">
+      {% for link in linklists[section.settings.footer_linklist3].links %}
+      <li>{{ link.title | link_to: link.url }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% endif %}
+
+    <div class="inline-row spaced">
+      <div class="inline-item left">
+        <div class="copy">{{ 'layout.footer.copyright' | t }} &copy; {{ "now" | date: "%Y" }} {{ shop.name | link_to: '/' }}.</div>
+
+
+        {% comment %} AUTHOR SECTION {% endcomment %}
+        <div class="theme-author">
+          {{ 'layout.footer.theme_by_html' | t }}
+          {{ powered_by_link }}
+        </div>
+        {% comment %} END OF AUTHOR SECTION {% endcomment %}
+
+      </div>
+
+      <div class="inline-item right last payment-methods">
+        {% for type in shop.enabled_payment_types %}
+        <img src="{{ type | payment_type_img_url }}" alt="{{ type | escape }}" />
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "select",
+        "id": "footer_complexity",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "simple",
+            "label": "Simple"
+          },
+          {
+            "value": "columns",
+            "label": "Columns"
+          }
+        ],
+        "default": "simple"
+      },
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_footer_logo",
+        "label": "Show logo",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "footer_logo",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "richtext",
+        "id": "text_content",
+        "label": "Text"
+      },
+      {
+        "type": "header",
+        "content": "Menus"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "Primary menu",
+        "default": "footer",
+        "info": "This menu won't show dropdown items"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist2",
+        "label": "Additional menu 1",
+        "info": "This menu won't show dropdown items"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist3",
+        "label": "Additional menu 2",
+        "info": "This menu won't show dropdown items"
+      },
+      {
+        "type": "header",
+        "content": "Newsletter"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_display_newsletter",
+        "label": "Show newsletter sign-up",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

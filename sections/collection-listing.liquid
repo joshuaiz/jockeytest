@@ -1,0 +1,144 @@
+
+{% assign using_link_list = false %}
+
+{% if template contains 'page' and linklists[page.handle] != blank and linklists[page.handle].links.size > 0 %}
+  {% assign using_link_list = true %}
+{% endif %}
+
+
+<div id="collections" class="{% if section.settings.sidebar_show %}show-sidebar{% endif %}" data-section-type="collection-listing">
+
+  {% if section.settings.sidebar_show %}
+  <div class="sidebar-cont cf">
+    <div class="sidebar">
+      <h2>{{ 'collections.collection_list.sidebar_title' | t }}</h2>
+      <ul class="plain">
+        {% for link in linklists[section.settings.sidebar_linklist].links %}
+          <li{% if link.active %} class="active"{% endif %}>
+            {% if link.url == '#heading' %}
+            <h6 class="heading">{{ link.title }}</h6>
+            {% else %}
+            {{ link.title | link_to: link.url }}
+            {% endif %}
+          </li>
+          {% endfor %}
+      </ul>
+
+      {{ pages[section.settings.sidebar_page].content }}
+    </div>
+
+    <div class="beside-sidebar">
+	{% endif %}
+
+
+      {% if using_link_list %}
+      {% for link in linklists[page.handle].links %}
+      {% if link.type == 'collection_link' %}
+      {% assign collection = link.object %}
+
+      <div class="section {% unless forloop.last %}border-bottom{% endunless %} {% if forloop.first and section.settings.sidebar_show %}padless-top{% endif %}">
+        <div class="opposing-items">
+          <h2 class="left section-heading">{{ collection.title | link_to: collection.url }}</h2>
+          <a class="btn section-count" href="{{ collection.url }}">
+            <span class="not-tiny">{{ 'collections.general.view_all' | t }} ({{ collection.products_count }})</span>
+            <span class="tiny">{{ collection.products_count }}</span>
+          </a>
+        </div>
+
+        <div class="row grid one-row" data-normheights=".image" data-normheights-inner="img">
+          {% for product in collection.products limit: section.settings.products_per_row %}
+          {% include 'product-block', products_per_row: section.settings.products_per_row %}
+          {% endfor %}
+        </div>
+      </div>
+
+      {% endif %}
+      {% endfor %}
+
+      {% else %}
+      {% paginate collections by 24 %}
+
+      {% for collection in collections %}
+      <div class="section {% unless forloop.last %}border-bottom{% endunless %} {% if forloop.first and section.settings.sidebar_show %}padless-top{% endif %}">
+        <div class="opposing-items">
+          <h2 class="left section-heading">{{ collection.title | link_to: collection.url }}</h2>
+          <a class="btn section-count" href="{{ collection.url }}">
+            <span class="not-tiny">{{ 'collections.general.view_all' | t }} ({{ collection.products_count }})</span>
+            <span class="tiny">{{ collection.products_count }}</span>
+          </a>
+        </div>
+
+        <div class="row grid one-row" data-normheights=".image" data-normheights-inner="img">
+          {% for product in collection.products limit: section.settings.products_per_row %}
+          {% include 'product-block', products_per_row: section.settings.products_per_row %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+
+      {% if paginate.pages > 1 %}
+      <div class="pagination align-right">
+        {{ paginate | default_pagination }}
+      </div>
+      {% endif %}
+
+      {% endpaginate %}
+      {% endif %}
+      
+      {% if section.settings.sidebar_show %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Collection list",
+    "settings": [
+      {
+        "type": "select",
+        "id": "products_per_row",
+        "label": "Maximum number of products per row",
+        "options": [
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          }
+        ],
+        "default": "4"
+      },
+	  {
+        "type": "header",
+        "content": "Sidebar"
+      },
+      {
+        "type": "checkbox",
+        "id": "sidebar_show",
+        "label": "Show sidebar",
+        "default": false
+      },
+      {
+        "type": "link_list",
+        "id": "sidebar_linklist",
+        "label": "Sidebar menu"
+      },
+      {
+        "type": "page",
+        "id": "sidebar_page",
+        "label": "Page to show under menu"
+      }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,138 @@
+<section class="border-top section slideshow-section" data-section-type="slideshow">
+  <div class="container">
+    <div class="slideshow smoothheight">
+      {% for block in section.blocks %}
+        <div class="slide" {{ block.shopify_attributes }}>
+          
+          {% if block.settings.link_url != blank %}<a href="{{ block.settings.link_url }}">{% endif %}
+
+          {% if block.settings.image == blank %}
+          <div class="placeholder-image placeholder--banner {% if block.settings.title != blank or block.settings.text != blank %}dark{% endif %}">
+            {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+            {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+          {% else %}
+          <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt | escape }}"
+               srcset="{{ block.settings.image | img_url: '320x' }} 320w,
+                       {{ block.settings.image | img_url: '640x' }} 640w,
+                       {{ block.settings.image | img_url: '1024x' }} 1024w,
+                       {{ block.settings.image | img_url: '1800x' }} 1800w" sizes="100vw" />
+          {% endif %}
+          
+          {% if block.settings.link_url != blank %}</a>{% endif %}
+
+          {% if block.settings.title != blank or block.settings.text != blank or block.settings.button_text != blank %}
+          <div class="slide-overlay align-{{ block.settings.position }}" style="color:{{ block.settings.text_colour }}">
+            <div class="inner">
+              {% if block.settings.title != blank %}
+              <div class="line-1 trans-out">
+                {{ block.settings.title | escape }}
+              </div>
+              {% endif %}
+              {% if block.settings.text != blank %}
+              <div class="line-2 trans-out">
+                {{ block.settings.text | escape }}
+              </div>
+              {% endif %}
+              {% if block.settings.button_text != blank %}
+              <div class="line-3 trans-out">
+                <a class="btn" href="{{ block.settings.link_url }}">{{ block.settings.button_text | escape }}</a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+          
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Slideshow",
+	"class": "homepage-section",
+	"max_blocks": 8,
+    "settings": [],
+	"blocks": [
+	  {
+		"type": "image",
+        "name": "Slide",
+        "settings": [
+			{
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image",
+              "info": "1400 x 600px recommended"
+            },
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Heading",
+			  "default": "Slideshow"
+            },
+			{
+              "type": "text",
+              "id": "text",
+              "label": "Subheading",
+			  "default": "Tell your story with images"
+            },
+			{
+              "type": "color",
+              "id": "text_colour",
+              "label": "Text color",
+			  "default": "#ffffff"
+            },
+			{
+              "type": "text",
+              "id": "button_text",
+              "label": "Button text",
+			  "default": "See more"
+            },
+            {
+              "type": "select",
+              "id": "position",
+              "label": "Text alignment",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "centre",
+                  "label": "Center"
+                },
+                {
+                  "value": "right",
+                  "label": "Right"
+                }
+              ],
+			  "default": "centre"
+            },
+            {
+              "type": "url",
+              "id": "link_url",
+              "label": "Slide link"
+            }
+		]
+	  }
+	],
+	"presets": [
+	  {
+		"name": "Slideshow",
+        "category": "Image",
+        "settings": {
+        },
+		"blocks": [
+		  {
+			"type": "image"
+		  },
+	 	  {
+			"type": "image"
+		  }
+		]
+	  }
+	]
+  }
+{% endschema %}

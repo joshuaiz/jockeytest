@@ -1,0 +1,46 @@
+<section class="border-top section feature-section">
+  <div class="container fullwidth-image">
+    {% if section.settings.link_url != blank %}<a href="{{ section.settings.link_url }}">{% endif %}
+    
+    {% if section.settings.image == blank %}
+    <div class="placeholder-image placeholder--banner">
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+    {% else %}
+    
+    {{ section.settings.image | img_url: '2048x' | img_tag: section.settings.image.alt }}
+    
+    {% endif %}
+    
+    {% if section.settings.link_url != blank %}</a>{% endif %}
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Image",
+	"class": "homepage-section",
+    "settings": [
+	  {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "1800 x 600px recommended"
+      },
+      {
+        "type": "url",
+        "id": "link_url",
+        "label": "Link"
+      }
+	],
+	"presets": [
+	  {
+		"name": "Image",
+        "category": "Image",
+        "settings": {
+        }
+	  }
+	]
+  }
+{% endschema %}

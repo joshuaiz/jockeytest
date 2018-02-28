@@ -1,0 +1,59 @@
+{% assign show_single_variant_details = true %}
+
+{% capture url %}{% if collection %}{{ product.url | within: collection }}{% else %}{{ product.url }}{% endif %}{% endcapture %}
+
+{% assign max_cols = section.settings.products_per_row | default: 4 %}
+
+
+{% comment %} Un-comment the following lines to show larger product images on the homepage. Can be 2, 3, 4, 6. {% endcomment %}
+{% comment %}
+{% if template contains 'index' %}
+{% assign max_cols = 2 %}
+{% endif %}
+{% endcomment %}
+
+<div class="product-block {% if settings.label_soldout_show and product.available == false %}sold-out {% endif %}{{ product-block | default: 'flex column' }} max-cols-{{ max_cols }} min-cols-2">
+  <div class="image">
+    <div class="inner">
+      <a href="{{ url }}">
+        <img src="{{ product.featured_image | product_img_url: '600x' }}" alt="{{ product.featured_image.alt | escape }}"
+             srcset="{{ product.featured_image | product_img_url: '150x' }} 150w,
+                     {{ product.featured_image | product_img_url: '300x' }} 300w,
+                     {{ product.featured_image | product_img_url: '600x' }} 600w,
+                     {{ product.featured_image | product_img_url: '800x' }} 800w,
+                     {{ product.featured_image | product_img_url: '1000x' }} 1000w"
+             sizes="(max-width: 767px) 50vw, {{ 100 | divided_by: max_cols }}vw" />
+      </a>
+      
+      {% if settings.prod_quick_buy_show %}
+      <div class="quick-buy-wrap pos-{{ settings.prod_quick_buy_pos }}">
+        <a class="quick-buy {% if settings.prod_quick_buy_pos == 'middle' %}giant{% else %}big{% endif %}-round-button" href="{{ url }}">{{ 'products.general.quick_buy_html' | t }}</a>
+      </div>
+      
+      {% include 'quick-buy-placeholder' %}
+      {% endif %}
+    </div>
+    
+    {% include 'product-label' %}
+  </div>
+  
+  
+  <div class="{% if settings.prod_block_layout contains 'beside' %}ft ftw ft-nm{% endif %}">
+    <div class="ftr">
+      <a class="title ftc" href="{{ url }}">{{ product.title }}</a>
+
+      <div class="price ftc {% if product.compare_at_price > product.price %}on-sale{% endif %}">
+        {% if product.price_varies %}
+        <span class="from">{{ 'products.general.from' | t }}</span>
+        {% endif %}
+        <span class="amount">{{ product.price | money }}</span>
+        {% if product.compare_at_price > product.price %}
+        <del>{{ product.compare_at_price | money }}</del>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+</div>
+{% assign forloop_index = false %}

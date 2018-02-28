@@ -1,0 +1,24 @@
+<div id="mailing-list">
+    {% form 'customer' %}
+      {% if form.posted_successfully? %}
+  		<div class="notification">
+          <h4 class="no-margin">{{ 'layout.signup.post_success' | t }}</h4>
+  		</div>
+  		<script>$(window).on('load', function(){ setTimeout( function() { $(window).scrollTop( $('#mailing-list').offset().top ) }, 50) });</script>
+      {% else %}
+        <input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter"/>
+    	<div class="input-row inline-input-button">
+          <input type="email" placeholder="{{ 'layout.signup.email' | t }}" class="required" value="" id="mailinglist_email" name="contact[email]" />
+          <input type="submit" value="{{ 'layout.signup.button' | t }}" />
+        </div>
+        {% if form.errors %}
+  		<script>$(window).on('load', function(){ setTimeout( function() { $(window).scrollTop( $('#mailing-list').offset().top ) }, 50) });</script>
+        <div class="notification errors">
+          {% for field in form.errors %}
+          <div>{{ field | capitalize }} {{ form.errors.messages[field] }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      {% endif %}
+    {% endform %}
+</div>

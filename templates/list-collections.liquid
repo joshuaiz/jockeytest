@@ -1,0 +1,28 @@
+<div class="container">
+
+  {% comment %}
+  <div class="inline-row cf">
+    <!-- Begin breadcrumbs -->
+    <div class="breadcrumbs inline-item left">
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+      <span class="divider">{{ 'general.breadcrumbs.divider_html' | t }}</span>
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/collections" title="{{ 'collections.collection_list.title' | t | escape }}" itemprop="url"><span itemprop="title">{{ 'collections.collection_list.title' | t }}</span></a></span>
+    </div>
+    <!-- End breadcrumbs -->
+    
+    <div class="inline-item right last">
+      {% include 'sharing' %}
+    </div>
+  </div>
+  {% endcomment %}
+
+  
+  <div class="collection-header">
+    <div class="header-text">
+      <h1 class="page-title">{{ 'collections.collection_list.title' | t }}</h1>
+    </div>
+  </div>
+
+  
+  {% section 'collection-listing' %}
+</div>

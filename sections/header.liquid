@@ -1,0 +1,213 @@
+{% if section.settings.logo != blank %}
+<style type="text/css">
+  .logo img {
+    width: {{ section.settings.logo_width }}px;
+  }
+</style>
+{% endif %}
+
+{% if template == 'password' or template == 'gift_card' %}
+
+{% comment %} Password/gift card template logo {% endcomment %}
+<h1 class="logo">
+  {% if section.settings.logo != blank %}
+  {% capture img_size %}{{ section.settings.logo_width | times: 2 }}x{% endcapture %}
+  <img src="{{ section.settings.logo | img_url: img_size }}" alt="{{ section.settings.logo.alt | escape }}" />
+  {% else %}
+  {{ shop.name }}
+  {% endif %}
+</h1>
+
+{% else %}
+
+<div class="page-header layout-{{ section.settings.header_layout }}" data-section-type="header">
+  <div id="toolbar" class="toolbar cf">
+    <span class="mobile-toolbar">
+      <a class="toggle-mob-nav" href="#" aria-controls="mobile-nav" aria-label="{{ 'layout.header.open_mobile_nav_aria_label' | t | escape }}">{% include 'svg-nav' %}</a>
+      <a class="compact-logo" href="{{ shop.url }}">
+        {% if section.settings.logo != blank %}
+        {% if section.settings.use_mobile_logo %}
+        {{ section.settings.compact_logo | img_url: '200x' | img_tag: section.settings.compact_logo.alt }}
+        {% else %}
+        {{ section.settings.logo | img_url: '200x' | img_tag: section.settings.logo.alt }}
+        {% endif %}
+        {% else %}
+        {{ shop.name }}
+        {% endif %}
+      </a>
+    </span>
+
+    {% unless section.settings.header_layout == 'mobile' %}
+    <span class="toolbar-links">
+      {% if shop.customer_accounts_enabled %}
+      {% if customer  %}
+      <a href="/account">{{ 'layout.customer.your_account' | t }}</a>
+      <span class="divider">/</span> {{ 'layout.customer.logout' | t | customer_logout_link }}
+      {% else %}
+      {{ 'layout.customer.login' | t | customer_login_link }}
+      {% if shop.customer_accounts_optional %}
+      <span class="divider">/</span> {{ 'layout.customer.create_account' | t | customer_register_link }}
+      {% endif %}
+      {% endif %}
+      {% if section.settings.show_header_search %}<span class="divider">/</span>{% endif %}
+      {% endif %}
+      {% if section.settings.show_header_search %}
+      <form class="search-form" action="/search" method="get">
+        <input type="hidden" name="type" value="{{ settings.search_type }}" />
+        <button type="submit">{% include 'svg-search' %}</button>
+        <input type="text" name="q" placeholder="{{ 'layout.header.search' | t }}"/>
+      </form>
+      {% endif %}
+    </span>
+    {% endunless %}
+
+    <span class="toolbar-cart">
+      <a class="current-cart {% if template != 'cart' %}toggle-cart-summary{% endif %}" href="/cart">
+        <span class="beside-svg">{{ cart.item_count }} / {{ cart.total_price | money }}</span>
+        {% include 'svg-cart' %}
+      </a>
+    </span>
+
+    {% unless section.settings.header_layout == 'mobile' %}
+    <span class="toolbar-social">
+      {% include 'social-links' %}
+    </span>
+    {% endunless %}
+  </div>
+
+  <div class="logo-nav">
+    {% capture logo_html %}
+    <div class="logo align-{% if section.settings.header_layout == 'left' %}left{% else %}center{% endif %}">
+      {% if section.settings.logo != blank %}
+      {{ section.settings.logo | img_url: 'master' | img_tag: section.settings.logo.alt | link_to: shop.url }}
+      {% else %}
+      {{ shop.name | link_to: shop.url }}
+      {% endif %}
+    </div>
+    {% endcapture %}
+
+    {% unless section.settings.header_layout == 'nav' %}<div class="cf">{{ logo_html }}</div>{% endunless %}
+
+    {% unless section.settings.header_layout == 'mobile' and section.settings.menu_linklist != blank %}
+    {% include 'main-navigation' %}
+    {% endunless %}
+  </div>
+
+  <script id="mobile-navigation-template" type="text/template">
+  {% include 'mobile-navigation' %}
+  </script>
+</div>
+
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "menu_linklist",
+        "label": "Menu",
+		"default": "main-menu"
+      },
+      {
+        "type": "select",
+        "id": "header_layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "center",
+            "label": "Logo in the center"
+          },
+          {
+            "value": "left",
+            "label": "Logo on the left"
+          },
+          {
+            "value": "nav",
+            "label": "Logo in the navigation"
+          },
+          {
+            "value": "mobile",
+            "label": "Mobile navigation style on desktop"
+          }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Image",
+        "info": "300 x 100px recommended"
+      },
+      {
+        "type": "text",
+        "id": "logo_width",
+        "label": "Logo width (in pixels)",
+        "default": "300"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_mobile_logo",
+        "label": "Use mobile logo",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "compact_logo",
+        "label": "Mobile logo"
+      },
+      {
+        "type": "header",
+        "content": "Toolbar options"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_header_search",
+        "label": "Show search box"
+      },
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "select",
+        "id": "nav_alignment",
+        "label": "Alignment",
+        "options": [
+          {
+            "value": "center",
+            "label": "Centered"
+          },
+          {
+            "value": "left",
+            "label": "Left-aligned"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "range",
+        "id": "nav_col_limit_int",
+        "min": 3,
+        "max": 14,
+        "step": 1,
+        "label": "Maximum number of links per column",
+        "info": "Does not apply to full-width dropdown",
+        "default": 8
+      },
+      {
+        "type": "checkbox",
+        "id": "nav_show_images",
+        "label": "Show collection images in dropdown navigation",
+        "info": "Works only on desktop.",
+		    "default": true
+      }
+	]
+  }
+{% endschema %}

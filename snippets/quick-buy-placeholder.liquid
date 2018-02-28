@@ -1,0 +1,34 @@
+<script type="text/template" class="quickbuy-placeholder-template">
+<div class="quickbuy-form placeholder">
+  <div class="container">
+    <div class="row space-under">
+      <div class="product-gallery half column">
+        <div class="main">
+          <img src="{{ product.featured_image | product_img_url: '600x' }}" alt="{{ product.featured_image.alt | escape }}"
+               srcset="{{ product.featured_image | product_img_url: '150x' }} 150w,
+                       {{ product.featured_image | product_img_url: '300x' }} 300w,
+                       {{ product.featured_image | product_img_url: '600x' }} 600w,
+                       {{ product.featured_image | product_img_url: '800x' }} 800w,
+                       {{ product.featured_image | product_img_url: '1000x' }} 1000w"
+               sizes="(max-width: 767px) 50vw, {{ 100 | divided_by: max_cols }}vw" />
+        </div>
+      </div>
+      <div class="product-details half column">
+        <div class="border-bottom section padless-top cf product-title-row">
+          <div class="brand-and-type feature-col">
+            <span class="brand">&nbsp;</span>
+          </div>
+          <h1 class="product-title">{{ product.title }}</h1>
+
+          <div id="price" class="product-price {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}on-sale{% endif %}">
+            {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+            <span class="was-price">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="current-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</script>

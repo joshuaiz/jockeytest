@@ -1,0 +1,57 @@
+{% assign mod4 = forloop.index | modulo: 4 %}
+{% assign mod3 = forloop.index | modulo: 3 %}
+{% assign mod2 = forloop.index | modulo: 2 %}
+<div class="article {{ article-block | default: 'flex column max-cols-4' }} {% if mod2 == 1 %} nth-2{% endif %}{% if mod3 == 1 %} nth-3{% endif %}{% if mod4 == 1 %} nth-4{% endif %}">
+
+  {% if article.image %}
+  {% capture header_size %}{{ header_size | default: '640x' }}{% endcapture %}
+  <div class="article-image" {% if crop %}data-crop-img="{{ crop_ratio }}"{% endif %}>
+    <a href="{{ article.url }}">
+      <img src="{{ article.image | img_url: header_size }}" alt="{{ article.image.alt | escape }}" />
+    </a>
+  </div>
+  {% endif %}
+
+  <div class="reading-column">
+    <h2>{{ article.title | link_to: article.url }}</h2>
+
+    <div class="excerpt rte">
+      {{ article.excerpt_or_content }}
+    </div>
+
+    {% if section.settings.show_meta_on_listing or section.settings.show_author %}
+    <div class="lightly-spaced-row">
+      {% if article-block contains 'full' and section.settings.show_author %}
+      <span class="gravatar">
+        <img src="//www.gravatar.com/avatar/{{ article.user.email | remove: ' ' | strip_newlines | downcase | md5 }}?d=https:{{ 'gravatar_def.png' | asset_url | url_param_escape }}" alt="{{ article.author }}" />
+      </span>
+      {% endif %}
+
+      <div class="article-meta">
+        {% if section.settings.show_meta_on_listing %}
+          {% assign published_at = article.published_at | date: format: 'month_date_year' %}
+          <div class="date">{{ 'blogs.article.posted_on_date' | t: date: published_at  }}</div>
+        {% endif %}
+        {% if section.settings.show_author %}<div class="author">{{ 'blogs.article.posted_by' | t: author: article.author  }}</div>{% endif %}
+        {% if article.comments_enabled? and article.comments_count > 0 and section.settings.show_meta_on_listing %}
+        <div class="comments-count">{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+    
+    {% if section.settings.show_tags_on_articles %}
+    {% capture tag_html %}
+    <div class="article-tags lightly-spaced-row">
+      {{ 'blogs.general.tagged' | t }}
+      {% for tag in article.tags %}
+      {% unless tag contains 'meta-' %}<span class="tag">{{ tag | link_to_tag: tag }}</span>{% endunless %}{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    </div>
+    {% endcapture %}
+    {% if tag_html contains 'span' %}{{ tag_html }}{% endif %}
+    {% endif %}
+    
+    <a class="more-link" href="{{ article.url }}">{{ 'blogs.general.read_more' | t }}</a>
+  </div>
+</div>

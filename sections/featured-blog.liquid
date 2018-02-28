@@ -1,0 +1,82 @@
+<section class="border-top section blog-section" data-section-type="featured-blog">
+  <div class="container">
+    {% if section.settings.blog == blank %}
+    {% include 'onboarding-blog-row' %}
+    {% else %}
+    
+    {% assign blog = blogs[section.settings.blog] %}
+    <div class="opposing-items">
+      <h1 class="section-heading left">{{ blog.title | link_to: blog.url }}</h1>
+      <a class="btn" href="{{ blog.url }}">{{ 'blogs.general.view_all' | t }}</a>
+    </div>
+    <div class="row">
+      {% if blog.articles.size > 0 %}
+      
+      {% for article in blog.articles limit: 3 %}
+      {% include 'article-block' with 'third column', crop: section.settings.crop_image, crop_ratio: section.settings.crop_ratio %}
+      {% endfor %}
+      
+      {% else %}
+      
+      {{ 'home_page.onboarding.blog_empty' | t }}
+      
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Blog posts",
+	"class": "homepage-section",
+    "settings": [
+	  {
+        "type": "blog",
+        "id": "blog",
+        "label": "Blog"
+      },
+      {
+        "type": "checkbox",
+        "id": "crop_image",
+        "label": "Crop featured image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "label": "Show author",
+		"default": true
+      },
+      {
+        "type": "select",
+        "id": "crop_ratio",
+        "label": "Crop style",
+        "options": [
+          {
+            "value": "1-1",
+            "label": "Square"
+          },
+          {
+            "value": "3-4",
+            "label": "Portrait"
+          },
+          {
+            "value": "16-9",
+            "label": "Landscape"
+          }
+        ],
+        "default": "16-9"
+      }
+	],
+	"presets": [
+	  {
+		"name": "Blog posts",
+        "category": "Blog",
+        "settings": {
+        }
+	  }
+	]
+  }
+{% endschema %}

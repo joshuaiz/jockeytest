@@ -1,0 +1,91 @@
+{% include 'split_images_from_content' with page.content %}
+
+{% if section.settings.header_mode == 'fullw-image' and split_images contains 'img' %}
+<div class="fullwidth-image">{{ split_images }}</div>
+{% endif %}
+
+<div class="container">
+  {% if section.settings.header_mode == blank and split_images contains 'img' %}
+  <div class="fullwidth-image">{{ split_images }}</div>
+  {% endif %}
+
+  <div class="collection-header {{ section.settings.header_mode }} {% if split_images contains 'img' %}has-image{% endif %} handle-{{ page.handle }}">
+    {% if section.settings.header_mode == 'coloured-split' %}
+    <div class="ft">
+      <div class="ftr">
+        <div class="ftc vb">
+          {% endif %}
+
+          <div class="header-text">
+            <h1 class="page-title">{{ page.title }}</h1>
+
+            {% if split_content != "" %}
+            <div class="rte">{{ split_content }}</div>
+            {% endif %}
+          </div>
+
+          {% if section.settings.header_mode == 'coloured-split' %}
+        </div>
+
+        <div class="header-image ftc">
+          {% if split_images contains 'img' %}{{ split_images }}{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Custom collection list",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "select",
+        "id": "header_mode",
+        "label": "Style",
+        "options": [
+          {
+            "value": "",
+            "label": "Banner fit"
+          },
+          {
+            "value": "fullw-image",
+            "label": "Banner wide"
+          },
+          {
+            "value": "text-only",
+            "label": "No image"
+          },
+          {
+            "value": "coloured-split",
+            "label": "Color background"
+          }
+        ],
+        "default": "coloured-split"
+      },
+      {
+        "type": "paragraph",
+        "content": "Banner fit: Featured image spans page width. Sits above title and description."
+      },
+      {
+        "type": "paragraph",
+        "content": "Banner wide: Featured image spans browser width. Sits above title and description."
+      },
+      {
+        "type": "paragraph",
+        "content": "No image: Featured image not shown. Title and description only."
+      },
+      {
+        "type": "paragraph",
+        "content": "Color background: Featured image shown beside title and description, sitting on a single color background (set in the 'Colors' section)."
+      }
+	]
+  }
+{% endschema %}

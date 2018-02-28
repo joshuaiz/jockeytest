@@ -1,0 +1,5 @@
+{% layout false %}
+
+{% section 'product-template' %}
+
+<script>theme.productData[{{ product.id }}] = {{ product | json }};</script>

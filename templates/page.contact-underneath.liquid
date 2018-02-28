@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="reading-column">
+    <h1 class="page-title">{{ page.title }}</h1>
+
+    <div class="page-with-contact-form">
+      <div class="rte">{{ page.content | replace: 'fullwidth"', '" data-fullwidth="true"' }}</div>
+
+      <div class="section">
+        {% include 'contact-form' %}
+      </div>
+    </div>
+  </div>
+</div>
+

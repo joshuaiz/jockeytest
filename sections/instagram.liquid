@@ -1,0 +1,63 @@
+<section class="border-top section instagram-section" data-section-type="instagram">
+  <div class="container">
+    <div class="opposing-items">
+      <h1 class="section-heading left">{{ section.settings.title | escape }}</h1>
+      {% if section.settings.show_account %}
+      <span class="follow instagram-account">{{ 'home_page.instagram.follow' | t }} </span>
+      {% endif %}
+    </div>
+    
+    {% unless section.settings.access_token == blank %}
+    
+    <div class="willstagram" data-user_id="self" data-count="7" data-access_token="{{ section.settings.access_token | escape }}" {% if section.settings.show_account %}data-account=".instagram-section|.instagram-account"{% endif %}></div>
+    
+    {% else %}
+    
+    <div class="willstagram willstagram-placeholder">
+      <ul class="items">
+        {% for i in (1..12) %}<li class="item">
+        <div class="placeholder-image">{{ 'image' | placeholder_svg_tag }}</div>
+        </li>{% endfor %}
+      </ul>
+    </div>
+    
+    {% endunless %}
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Instagram feed",
+	"class": "homepage-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+		"default": "Instagram feed"
+      },
+	  {
+        "type": "checkbox",
+        "id": "show_account",
+        "label": "Show account name",
+		"default": true
+      },
+      {
+        "type": "text",
+        "id": "access_token",
+        "label": "Access token",
+        "info": "Required - [get your access token](http:\/\/cleanthemes.co.uk\/pages\/instagram-integration)"
+      }
+	],
+	"presets": [
+	  {
+		"name": "Instagram feed",
+        "category": "Social media",
+        "settings": {
+        }
+	  }
+	]
+  }
+{% endschema %}
+

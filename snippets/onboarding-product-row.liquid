@@ -1,0 +1,39 @@
+<div class="opposing-items">
+  <h1 class="section-heading left">{{ "home_page.onboarding.collection_title" | t }}</h1>
+
+  <span class="btn section-count">
+    <span class="not-tiny">{{ 'collections.general.view_all' | t }} (15)</span>
+    <span class="tiny">10</span>
+  </span>
+</div>
+
+<div class="row grid {% if section.settings.row_count_int == '1' %}one-row{% endif %}">
+  {% assign product_limit = section.settings.products_per_row | times: section.settings.row_count_int %}
+  {% for i in (1..product_limit) %}
+
+  {% assign mod4 = forloop.index | modulo: 4 %}
+  {% assign mod3 = forloop.index | modulo: 3 %}
+  {% assign mod2 = forloop.index | modulo: 2 %}
+
+  <div class="product-block flex column max-cols-{{ section.settings.products_per_row }} min-cols-{{ settings.mobile_products_per_row }} {% if mod2 == 1 %} nth-2{% endif %}{% if mod3 == 1 %} nth-3{% endif %}{% if mod4 == 1 %} nth-4{% endif %}">
+    <div class="image">
+      <div class="inner">
+        {% capture placeholder_svg_name %}product-{{ forloop.index | modulo: 6 | plus: 1 }}{% endcapture %}
+        <div class="placeholder-image">{{ placeholder_svg_name | placeholder_svg_tag }}</div>
+      </div>
+    </div>
+
+    <div class="{% if settings.prod_block_layout contains 'beside' %}ft ftw{% endif %}{% if settings.prod_block_layout == 'beside-exceptmobile' %} ft-nm{% endif %}">
+      <div class="ftr">
+        <span class="title ftc">{{ "home_page.onboarding.product_name" | t: number: i }}</span>
+
+        <div class="price ftc">
+          <span class="amount">{{ 1000 | money }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+
+</div>

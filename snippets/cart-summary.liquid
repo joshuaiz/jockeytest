@@ -1,0 +1,50 @@
+{% if settings.use_side_cart_summary %}
+<div id="cart-summary">
+  <div class="inner">
+    <a class="close toggle-cart-summary" href="#">
+      {% include 'svg-chevron-left' %}
+      <span class="beside-svg">{{ 'layout.cart_summary.continue_shopping' | t }}</span>
+    </a>
+    <h5 class="cart-summary-title">{{ 'layout.cart_summary.title' | t }}</h5>
+    {% if cart.items.size > 0 %}
+    <div class="cart-summary-item-list ft ftw">
+      {% for item in cart.items %}
+      <div class="cart-summary-item ftr cf">
+        <span class="image ftc">
+          <a href="{{ item.url }}">
+            <img src="{{ item | img_url: '60x' }}" alt="{{ item.title | escape }}"
+                 srcset="{{ item | img_url: '60x' }} 60w,
+                         {{ item | img_url: '120x' }} 120w" sizes="60px"/>
+          </a>
+        </span>
+        <span class="title-variant ftc">
+          <a class="title" href="{{ item.url }}">{{ item.product.title }}</a>
+          {% unless item.variant.title contains 'Default' %}<span class="variant">{{ item.variant.title }}</span>{% endunless %}
+        </span>
+        <span class="qty ftc">
+          <input class="micro select-on-focus" value="{{ item.quantity }}" />
+        </span>
+        <span class="price ftc">
+          {{ item.price | money }}
+        </span>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="cart-summary-title">
+      {{ 'layout.cart_summary.empty_html' | t }}
+    </p>
+    {% endif %}
+  </div>
+  <div class="cart-summary-footer">
+    <div class="cart-summary-subtotal border-top">
+      {{ 'layout.cart_summary.subtotal' | t }} <span class="amount">{{ cart.total_price | money }}</span>
+    </div>
+    <div class="cart-summary-buttons border-top cf">
+      <div class="align-right">
+        <a class="btn checkout" href="/cart">{{ 'layout.cart_summary.cart' | t }}</a>
+      </div>
+    </div>
+  </div>
+</div><!-- /#cart-summary -->
+{% endif %}

@@ -1,0 +1,91 @@
+<nav id="mobile-nav">
+  <div class="inner">
+
+    {% if section.settings.show_header_search %}
+    <form class="search-form" action="/search" method="get">
+      <input type="hidden" name="type" value="{{ settings.search_type }}" />
+      <button type="submit">{% include 'svg-search' %}</button>
+      <input type="text" name="q" placeholder="{{ 'layout.header.search' | t }}"/>
+    </form>
+    {% endif %}
+
+    <div class="header">
+      {% include 'social-links' %}
+    </div>
+
+    {% comment %} Start of main menu {% endcomment %}
+    <ul class="plain" role="navigation" aria-label="{{ 'layout.mobile_navigation.menu_aria_label' | t | escape }}">
+      {% for link in linklists[section.settings.menu_linklist].links %}
+        <li class="nav-item{% if link.active %} active{% endif %}">
+          <a class="nav-item-link" href="{{ link.url }}">
+            {{ link.title }}
+          </a>
+
+          {% if link.links != blank %}
+          <button class="open-sub-nav"
+            data-sub-nav="menu-{{ forloop.index }}"
+            aria-haspopup="true"
+            aria-controls="sub-nav-menu-{{ forloop.index }}">{% include 'svg-chevron-right' %}</button>
+          {% endif %}
+        </li>
+      {% endfor %}
+
+      {% if shop.customer_accounts_enabled %}
+        {% if customer  %}
+          <li class="account-nav-item border-top"><a href="/account">{{ 'layout.customer.your_account' | t }}</a></li>
+          <li class="account-nav-item">{{ 'layout.customer.logout' | t | customer_logout_link }}</li>
+        {% else %}
+            <li class="account-nav-item border-top">{{ 'layout.customer.login' | t | customer_login_link }}</li>
+          {% if shop.customer_accounts_optional %}
+            <li class="account-nav-item">{{ 'layout.customer.create_account' | t | customer_register_link }}</li>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    </ul>
+  </div>
+
+  {% comment %} Output sub-nav {% endcomment %}
+  {% for link in linklists[section.settings.menu_linklist].links %}
+  {% if link.links != blank %}
+  {% assign outer_forloop_index = forloop.index %}
+
+  <div id="sub-nav-menu-{{ forloop.index }}" class="sub-nav" data-is-subnav-for="menu-{{ forloop.index }}">
+    <div class="header">
+      <a class="close-sub-nav" href="#"><span class="btn alt">{% include 'svg-chevron-left' %}</span> {{ 'layout.mobile_navigation.back' | t }}</a>
+    </div>
+
+    <ul class="sub-nav-list plain">
+      {% for child_link in link.links %}
+      <li class="sub-nav-item{% if child_link.active %} active{% endif %}">
+        <a class="sub-nav-item-link" href="{{ child_link.url }}">{{ child_link.title }}</a>
+        {% if child_link.links != blank %}
+        <button class="open-sub-nav"
+          data-sub-nav="menu-{{ outer_forloop_index }}-{{ forloop.index }}"
+          aria-haspopup="true" aria-controls="sub-nav-menu-{{ outer_forloop_index }}-{{ forloop.index }}">{% include 'svg-chevron-right' %}</button>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% for child_link in link.links %}
+  {% if child_link.links != blank %}
+  <div id="sub-nav-menu-{{ outer_forloop_index }}-{{ forloop.index }}" class="sub-nav" data-is-subnav-for="menu-{{ outer_forloop_index }}-{{ forloop.index }}">
+    <div class="header">
+      <a class="close-sub-nav" href="#"><span class="btn alt">{% include 'svg-chevron-left' %}</span> {{ 'layout.mobile_navigation.back' | t }}</a>
+    </div>
+
+    <ul class="sub-nav-list plain">
+      {% for child_child_link in child_link.links %}
+      <li class="sub-nav-item{% if child_child_link.active %} active{% endif %}">
+        <a class="sub-nav-item-link" href="{{ child_child_link.url }}">{{ child_child_link.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% endfor %}
+
+  {% endif %}
+  {% endfor %}
+</nav>
