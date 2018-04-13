@@ -1,0 +1,362 @@
+{
+  "general": {
+    "404": {
+      "title": "Seite nicht gefunden",
+      "subtext_html": "Leider konnten wir diese Seite nicht finden. <a href=\"\/collections\/all\">Klicken Sie hier<\/a>, um weiter einzukaufen."
+    },
+    "pagination": {
+      "summary": "Seite {{ current_page }} von {{ pages }}"
+    },
+    "meta": {
+      "tagged": "Mit Tags versehen",
+      "page": "Seite"
+    },
+    "breadcrumbs": {
+      "divider_html": "\/",
+      "home": "Home"
+    },
+    "social": {
+      "share_link": "Teilen:",
+      "title": "Teilen",
+      "on_facebook": "Auf Facebook teilen",
+      "on_twitter": "Auf Twitter teilen",
+      "on_pinterest": "Hauptseite im Vordergrund anzeigen",
+      "on_google": "Auf Google+ teilen",
+      "by_email": "Per E-Mail teilen",
+      "check_out_html": "{{ title }} auschecken"
+    },
+    "search": {
+      "search_button": "Suchen",
+      "no_results_title": "Keine Suchergebnisse",
+      "no_results_html": "Ihre Suche nach <strong>{{ search }}<\/strong> hatte keine Ergebnisse. Versuchen Sie, nach etwas anderem zu suchen.",
+      "results_title": "Suchergebnisse",
+      "placeholder": "Suchbegriffe ...",
+      "read_more": "Mehr lesen"
+    }
+  },
+  "layout": {
+    "header": {
+      "search": "Suchen",
+      "menu": "Menü",
+      "open_mobile_nav_aria_label": "Navigation öffnen",
+      "close_mobile_nav_aria_label": "Navigation schließen"
+    },
+    "cart_summary": {
+      "continue_shopping": "Weiter einkaufen",
+      "title": "Ihre Bestellung",
+      "cart": "Einkaufswagen anzeigen",
+      "subtotal": "Zwischensumme:",
+      "empty_html": "Sie haben noch keine Artikel in Ihrem Einkaufswagen"
+    },
+    "customer": {
+      "login": "Anmelden",
+      "logout": "Abmelden",
+      "create_account": "Beitreten",
+      "your_account": "Ihr Konto"
+    },
+    "footer": {
+      "back_to_top": "Zurück zum Seitenanfang",
+      "copyright": "Copyright",
+      "theme_by_html": "Theme by <a href=\"http:\/\/www.cleanthemes.co.uk\" target=\"_blank\">Clean Themes<\/a>. ",
+      "menu_1_aria_label": "Fußzeilennavigation",
+      "menu_2_aria_label": "Sekundäre Fußzeilennavigation",
+      "menu_3_aria_label": "Tertiäre Fußzeilennavigation"
+    },
+    "signup": {
+      "email": "E-Mail-Adresse",
+      "button": "Abonnieren",
+      "post_success": "Vielen Dank für Ihre Registrierung!"
+    },
+    "desktop_navigation": {
+      "menu_aria_label": "Primäre Navigation"
+    },
+    "mobile_navigation": {
+      "back": "Zurück zur vorherigen Seite",
+      "menu_aria_label": "Mobilnavigation"
+    }
+  },
+  "blogs": {
+    "general": {
+      "view_all": "Alle anzeigen",
+      "all_articles": "Alle Artikel",
+      "read_more": "Mehr lesen",
+      "tagged": "Mit Tags versehen:",
+      "show_tags": "Tags anzeigen",
+      "no_matches": "Sie haben noch keine Artikel! Wenn Sie einen geschrieben haben, erscheint er hier."
+    },
+    "infinite_scroll": {
+      "loading": "Weitere Artikel laden ...",
+      "no_more": "Keine weiteren Artikel"
+    },
+    "article": {
+      "posted_on_date": "Gepostet am {{ date }}",
+      "posted_by": "{{ author }}",
+      "older_post": "Älteres Posting",
+      "newer_post": "Neueres Posting",
+      "back_to": "Zurück zu {{ title }}"
+    },
+    "comments": {
+      "title": "Kommentare",
+      "form_title": "Einen Kommentar hinterlassen",
+      "name": "Name",
+      "email": "E-Mail",
+      "message": "Kommentar",
+      "post": "Kommentar posten",
+      "moderated": "Bitte beachten: Kommentare müssen vor der Veröffentlichung genehmigt werden.",
+      "success_moderated": "Ihr Kommentar wurde erfolgreich gepostet. Er muss durch den Blog-Eigentümer genehmigt werden, bevor er angezeigt wird.",
+      "success": "Ihr Kommentar wurde erfolgreich gepostet.",
+      "error": "Beim Posten Ihres Kommentars ist ein Fehler aufgetreten.",
+      "comments_with_count": {
+        "one": "{{ count }} Kommentar",
+        "other": "{{ count }} Kommentare"
+      }
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Einkaufstaschen-Übersicht",
+      "update": "Aktualisieren",
+      "checkout": "Zur Kasse",
+      "continue": "Weiter einkaufen",
+      "backorder": "Produkt ist im Lieferrückstand. Wir werden es in 10 bis 15 Tagen separat liefern.",
+      "remove": "Entfernen",
+      "empty_title": "Sie haben noch keine Artikel in Ihrem Einkaufswagen",
+      "empty_subtext_html": "<a href=\"\/collections\/all\">Klicken Sie hier<\/a>, um weiter einzukaufen."
+    },
+    "label": {
+      "description": "Beschreibung",
+      "price": "Preis",
+      "quantity": "Menge",
+      "note": "Ihrer Bestellung eine Notiz hinzufügen",
+      "subtotal": "Zwischensumme vor Lieferung"
+    }
+  },
+  "collections": {
+    "general": {
+      "view_all": "Alle anzeigen",
+      "all_items": "Alle Artikel",
+      "results": "{{ count }} Ergebnisse",
+      "filter_by": "Filtern nach",
+      "empty": "Leider entsprechen keine Produkte Ihrer Suche"
+    },
+    "sorting": {
+      "title": "Sortieren nach",
+      "featured": "Vorgestellt",
+      "best_selling": "Am meisten verkauft",
+      "az": "Alphabetisch, A-Z",
+      "za": "Alphabetisch, Z-A",
+      "price_ascending": "Preis, niedrig bis hoch",
+      "price_descending": "Preis, hoch bis niedrig",
+      "date_descending": "Datum, neu bis alt",
+      "date_ascending": "Datum, alt bis neu"
+    },
+    "infinite_scroll": {
+      "loading": "Weitere Artikel werden geladen ...",
+      "no_more": "Keine weiteren Artikel"
+    },
+    "collection_list": {
+      "title": "Kollektionen",
+      "sidebar_title": "Kategorien"
+    },
+    "sidebar": {
+      "title": "Kategorien"
+    }
+  },
+  "home_page": {
+    "onboarding": {
+      "slideshow_button": "Thema anpassen",
+      "collection_title": "Ihre Kollektion",
+      "product_name": "Produkt {{ number }}",
+      "blog_title": "Ihre Neuigkeiten",
+      "article_title": "Artikel",
+      "article_excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "blog_empty": "Sie haben noch keine Artikel!"
+    },
+    "instagram": {
+      "follow": "Folgen"
+    }
+  },
+  "products": {
+    "general": {
+      "from": "Von",
+      "quick_buy_html": "Quick<br>Shop",
+      "full_details": "Vollständige Details"
+    },
+    "product": {
+      "back_to_html": "Zurück zu:",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "product_unavailable_html": "Wir haben diesen Artikel derzeit nicht vorrätig.",
+      "quantity": "Menge",
+      "add_to_cart_html": "Jetzt kaufen",
+      "pick_a": "Auswählen",
+      "backorder": "ist im Lieferrückstand. Wir werden es in 10 bis 15 Tagen separat liefern.",
+      "adding_to_cart": "Wird in Einkaufswagen gegeben ...",
+      "added_to_cart_btn": "Hinzugefügt",
+      "sku": "SKU:",
+      "related_title": "Verwandte Produkte"
+    },
+    "variant": {
+      "out_of_stock": "Nicht vorrätig",
+      "non_existent": "Produkt nicht verfügbar"
+    },
+    "labels": {
+      "sale": "Sonderpreis",
+      "only_x_left": "Nur {{ quantity }} übrig!",
+      "sold_out": "Ausverkauft"
+    },
+    "gallery": {
+      "previous": "Zurück",
+      "next": "Weiter",
+      "close": "Schließen"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title_html": "Hier ist Ihr {{ value }} Geschenkgutschein für {{ shop }}!",
+      "subtext": "Hier ist Ihr Geschenkgutschein!",
+      "disabled": "Deaktiviert",
+      "expired": "Abgelaufen am",
+      "active": "Läuft ab am",
+      "redeem": "Verwenden Sie an der Kasse diesen Code, um Ihren Geschenkgutschein einzulösen",
+      "shop_link": "Mit Einkauf beginnen",
+      "print": "Drucken",
+      "left": "übrig"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "message": "Nachricht",
+      "send": "Senden",
+      "post_success": "Vielen Dank für Ihre Anfrage. Wir werden uns so schnell wie möglich bei Ihnen melden.",
+      "post_error": "Ups, tut uns leid! Wir konnten Ihre Anfrage nicht einreichen. Bitte korrigieren Sie Folgendes und reichen Sie die Anfrage erneut ein:",
+      "post_field_error_html": "<strong>{{ field }}<\/strong> {{ error }}"
+    },
+    "placeholder": {
+      "name": "Johanna Mustermann",
+      "email": "johanna@beispiel.com",
+      "phone": "555-555-1234",
+      "message": "Ihre Nachricht"
+    }
+  },
+  "customer": {
+    "general": {
+      "or": "oder",
+      "back_to_account": "Zurück zu Ihrem Konto"
+    },
+    "account": {
+      "title": "Mein Konto",
+      "view_addresses": "Adressen anzeigen",
+      "logout": "Abmelden"
+    },
+    "activate_account": {
+      "title": "Konto aktivieren",
+      "subtext": "Erstellen Sie Ihr Kennwort, um Ihr Konto zu aktivieren.",
+      "password": "Kennwort",
+      "password_confirm": "Kennwort bestätigen",
+      "submit": "Konto aktivieren",
+      "cancel": "Einladung ablehnen"
+    },
+    "addresses": {
+      "title": "Ihre Adressen",
+      "default": "(Standardadresse)",
+      "add_new": "Neue Adresse hinzufügen",
+      "first_name": "Neue Adresse hinzufügen",
+      "last_name": "Nachname",
+      "company": "Unternehmen",
+      "address1": "Adresszeile1",
+      "address2": "Adresszeile12",
+      "city": "Stadt",
+      "country": "Land",
+      "province": "Bundesland\/Kanton",
+      "zip": "Postleitzahl",
+      "phone": "Telefon",
+      "set_default": "Als Standardadresse festlegen?",
+      "add": "Adresse hinzufügen",
+      "update": "Adresse aktualisieren",
+      "cancel": "Abbrechen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
+    },
+    "login": {
+      "title": "Anmelden",
+      "email": "E-Mail",
+      "password": "Kennwort",
+      "forgot_password": "Kennwort vergessen?",
+      "reset_password": "Kennwort zurücksetzen",
+      "reset_password_subtext": "Wir senden Ihnen eine E-Mail, damit Sie Ihr Kennwort zurücksetzen können.",
+      "reset_sent": "E-Mail zum Zurücksetzen Ihres Kennworts gesendet.",
+      "sign_in": "Anmelden",
+      "register": "Neuer Kunde? Für ein Konto registrieren",
+      "guest_title": "Als Gast anmelden",
+      "guest_continue": "Als Gast fortfahren",
+      "cancel": "Abbrechen",
+      "submit_recover": "Einreichen"
+    },
+    "orders": {
+      "order_number": "Bestellung",
+      "date": "Datum",
+      "payment_status": "Zahlungsstatus",
+      "fulfillment_status": "Lieferstatus",
+      "total": "Summe",
+      "none": "Sie haben noch keine Bestellungen aufgegeben."
+    },
+    "order": {
+      "title": "Bestellung {{ name }}",
+      "cancelled": "Bestellung storniert",
+      "cancelled_reason": "Grund: {{ reason }}",
+      "billing_address": "Rechnungsadresse",
+      "payment_status": "Zahlungsstatus",
+      "shipping_address": "Zahlungsstatus",
+      "fulfillment_status": "Lieferstatus",
+      "product": "Produkt",
+      "sku": "SKU",
+      "price": "Preis",
+      "quantity": "Menge",
+      "total": "Summe",
+      "subtotal": "Zwischensumme",
+      "fulfilled": "Geliefert",
+      "discount": "Rabatt"
+    },
+    "reset_password": {
+      "title": "Kennwort zurücksetzen",
+      "password": "Kennwort",
+      "password_confirm": "Kennwort bestätigen",
+      "submit": "Kennwort zurücksetzen"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "first_name": "Vorname",
+      "last_name": "Nachname",
+      "email": "E-Mail",
+      "password": "Kennwort",
+      "submit": "Erstellen",
+      "cancel": "Zurück zum Shop"
+    }
+  },
+  "storefront_password": {
+    "general": {
+      "page_title": "Demnächst eröffnet",
+      "powered_by": "Shop powered by",
+      "social_label": "Verbreiten Sie die Nachricht:"
+    },
+    "login": {
+      "link": "Mithilfe von Kennwort betreten:",
+      "label": "Shop mithilfe von Kennwort betreten:",
+      "button": "Betreten",
+      "admin_link_html": "Sind Sie der Shop-Eigentümer? <a href=\"\/admin\">Hier anmelden<\/a>"
+    },
+    "signup": {
+      "title": "Herausfinden, wann wir geöffnet haben:",
+      "placeholder": "Ihre E-Mail",
+      "button": "Einreichen",
+      "success": "Vielen Dank für Ihr Interesse! Wir werden Sie auf dem Laufenden halten."
+    }
+  },
+  "date_formats": {
+    "month_date_year": "%B %d, %Y"
+  }
+}
